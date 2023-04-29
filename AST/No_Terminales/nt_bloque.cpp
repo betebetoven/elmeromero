@@ -44,7 +44,7 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
                 {
                 if(temp->getValor().toString().toStdString()=="break")// aca puede ir el return como || pero primero hay que hacer las funcinoes
                 {env->updateCommonVariables(envv);
-                    env->report();
+                    //env->report();
                     return nullptr;}
                 if(temp->getValor().toString().toStdString()=="continue"&&aumento != nullptr)
                 {
@@ -71,13 +71,13 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
                 {
                 if(temp->getValor().toString().toStdString()=="break")
                     {env->updateCommonVariables(envv);
-                    env->report();
+                    //env->report();
                     return new Resultado(QString::fromStdString("break"));
                     }
                 if(temp->getValor().toString().toStdString()=="continue"&&aumento != nullptr)
                     {
                     env->updateCommonVariables(envv);
-                    env->report();
+                    //env->report();
                     return new Resultado(QString::fromStdString("continue"));
 
                     }
@@ -97,8 +97,8 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
     }
 
     env->updateCommonVariables(envv);
-    env->report();
-    envv->report();
+    //env->report();
+    //envv->report();
 
 
     return temp;

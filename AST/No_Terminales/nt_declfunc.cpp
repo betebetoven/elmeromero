@@ -20,11 +20,22 @@ Resultado *NT_DeclFunc::Interpretar(Environment *ctx, EnvironmentFunc* ctx2, Env
 
         QString varName = idR->getValor().toString();
         std::string valueType = tipoR->getTipo().toStdString();
+        std::cout<<"void "<<varName.toStdString()<<"() {"<<std::endl;
         if (aux == nullptr)
+        {
         ctx2->addVariable(varName.toStdString(), valueType, Expr);
+        Resultado* x = Expr->Interpretar(ctx,ctx2,ctx3);
+        }
         else
+        {
             ctx2->addVariable(varName.toStdString(), valueType,aux);
+            Resultado* x = aux->Interpretar(ctx,ctx2,ctx3);
+        }
+        std::cout<<"return;"<<std::endl;
+        std::cout<<"    }"<<std::endl;
+
     }
+
 
     return nullptr;
 }

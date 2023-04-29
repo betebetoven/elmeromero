@@ -23,7 +23,7 @@ Resultado* T_ID::Interpretar(Environment* ctx,EnvironmentFunc* ctx2, Environment
     Resultado* resultado = std::visit(ResultadoVisitor{}, content);
     std::cout<<"t"<<MiniResultado::x<<" =P + "<<placer<<std::endl;
         MiniResultado::x++;
-        std::cout<<"t"<<MiniResultado::x<<" = stack[t"<<MiniResultado::x-1<<"];"<<std::endl;
+        std::cout<<"t"<<MiniResultado::x<<" = stack[(int)t"<<MiniResultado::x-1<<"];"<<std::endl;
         QString generado = "t"+QString::fromStdString(std::to_string(MiniResultado::x));
         resultado->miniResultado.temporales.push_front(generado);
         MiniResultado::x++;

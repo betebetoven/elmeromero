@@ -13,10 +13,12 @@ Resultado* NT_Llamada::Interpretar(Environment* env, EnvironmentFunc* ctx2, Envi
         {
         Bloque *t =dynamic_cast<Bloque*>(expr);
         t->asignacionparametros = this->asignacionparametros;
-        return t->Interpretar(env, ctx2,ctx3);
+        //return t->Interpretar(env, ctx2,ctx3);
+        return nullptr;
         }
 
-        return expr->Interpretar(env, ctx2,ctx3);
+        //return expr->Interpretar(env, ctx2,ctx3);
+        return nullptr;
     } 
     else {
         // Throw an error

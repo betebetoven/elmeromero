@@ -21,6 +21,16 @@ Resultado *NT_DeclVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
                         } else if (valueType == "String") {
                             ctx->addVariable(varName.toStdString(), valueType, exprR->getValor().toString().toStdString());
                         }
+                        int pos = ctx->getvariableplacer(varName.toStdString());
+                        QString temporal = "t"+QString::fromStdString(std::to_string(MiniResultado::x));
+                        MiniResultado::x++;
+                        std::cout<<temporal.toStdString()<<" = P + "<<pos<<std::endl;
+                        if(exprR->miniResultado.temporales.size()==0)
+                        std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<exprR->getValor().toFloat()<<std::endl;
+                        else
+                        std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<exprR->miniResultado.temporales[0].toStdString()<<std::endl;
+
+
         } else if(exprR->getTipo() == "Integer" && tipoR->getTipo() == "Boolean"){
             QString varName = idR->getValor().toString();
             std::string valueType = tipoR->getTipo().toStdString();

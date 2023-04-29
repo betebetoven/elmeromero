@@ -28,7 +28,7 @@ Resultado *NT_AsigVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
 
 
     std::string valueType = expR->getTipo().toStdString();
-    std::cout << "Entro en asignacion" << expR->getValor().toString().toStdString()<<std::endl;
+    //std::cout << "Entro en asignacion" << expR->getValor().toString().toStdString()<<std::endl;
     // Update the variable in the environment based on the value type
     if (valueType == "Integer") {
         ctx->updateVariable(varName.toStdString(), expR->getValor().toInt(),expR->getTipo());
@@ -45,6 +45,14 @@ Resultado *NT_AsigVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
         //qDebug() << "Error: Type mismatch in variable assignment";
         return nullptr;
     }
+    int pos = ctx->getvariableplacer(varName.toStdString());
+    QString temporal = "t"+QString::fromStdString(std::to_string(MiniResultado::x));
+    MiniResultado::x++;
+    std::cout<<temporal.toStdString()<<" = P + "<<pos<<";"<<std::endl;
+    if(expR->miniResultado.temporales.size()==0)
+    std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<expR->getValor().toFloat()<<";"<<std::endl;
+    else
+    std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<expR->miniResultado.temporales[0].toStdString()<<";"<<std::endl;
 
     ctx->report();
     if(this->si)

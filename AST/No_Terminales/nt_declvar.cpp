@@ -21,6 +21,8 @@ Resultado *NT_DeclVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
                         } else if (valueType == "String") {
                             ctx->addVariable(varName.toStdString(), valueType, exprR->getValor().toString().toStdString());
                         }
+                        if (valueType != "Boolean")
+                        {
                         int pos = ctx->getvariableplacer(varName.toStdString());
                         QString temporal = "t"+QString::fromStdString(std::to_string(MiniResultado::x));
                         MiniResultado::x++;
@@ -30,11 +32,53 @@ Resultado *NT_DeclVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
                         else
                         std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<exprR->miniResultado.temporales[0].toStdString()<<std::endl;
 
+                        }else
+                        {
+                            int pos = ctx->getvariableplacer(varName.toStdString());
+                            QString temporal = "t"+QString::fromStdString(std::to_string(MiniResultado::x));
+                            QString lsalida = "L"+QString::fromStdString(std::to_string(MiniResultado::L++));
+                            MiniResultado::x++;
+                            //ETIQUETA DE VERDADERO
+                            for (int var = 0; var < exprR->miniResultado.EV.size(); ++var) {
+                            std::cout<<exprR->miniResultado.EV[var].toStdString()<<":"<<std::endl;
+                            }
+                            std::cout<<temporal.toStdString()<<" = P + "<<pos<<std::endl;
+                            if(exprR->miniResultado.temporales.size()==0)
+                            std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<"1"<<std::endl;
+                            else
+                            std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<exprR->miniResultado.temporales[0].toStdString()<<std::endl;
+                            //GOTO LSALIDA
+                            std::cout<<"goto "<<lsalida.toStdString()<<";"<<std::endl;
+
+
+                            //ETIQUETA DE FALSO
+                            for (int var = 0; var < exprR->miniResultado.EF.size(); ++var) {
+                            std::cout<<exprR->miniResultado.EF[var].toStdString()<<":"<<std::endl;
+                            }
+                            std::cout<<temporal.toStdString()<<" = P + "<<pos<<std::endl;
+                            if(exprR->miniResultado.temporales.size()==0)
+                            std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<"0"<<std::endl;
+                            else
+                            std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<exprR->miniResultado.temporales[0].toStdString()<<std::endl;
+                            //LSALIDA
+                            std::cout<<lsalida.toStdString()<<":"<<std::endl;
+
+                        }
+
 
         } else if(exprR->getTipo() == "Integer" && tipoR->getTipo() == "Boolean"){
             QString varName = idR->getValor().toString();
             std::string valueType = tipoR->getTipo().toStdString();
+
             ctx->addVariable(varName.toStdString(), valueType, exprR->getValor().toInt());
+            int pos = ctx->getvariableplacer(varName.toStdString());
+            QString temporal = "t"+QString::fromStdString(std::to_string(MiniResultado::x));
+            MiniResultado::x++;
+            std::cout<<temporal.toStdString()<<" = P + "<<pos<<std::endl;
+            if(exprR->miniResultado.temporales.size()==0)
+            std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<exprR->getValor().toFloat()<<std::endl;
+            else
+            std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<exprR->miniResultado.temporales[0].toStdString()<<std::endl;
 
         }
 

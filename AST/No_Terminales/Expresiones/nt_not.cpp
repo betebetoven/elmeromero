@@ -4,6 +4,9 @@ NT_Not::NT_Not(AbstractExpr *derecha) : Derecha(derecha) {}
 
 Resultado *NT_Not::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, EnvironmentVect* ctx3) {
     Resultado* der = this->Derecha->Interpretar(ctx,ctx2,ctx3);
+    QVector<QString> ev = der->miniResultado.EV;
+    QVector<QString> ef = der->miniResultado.EF;
+
 
     if (!der) {
         return nullptr; // Return nullptr if the operand is nullptr
@@ -18,6 +21,16 @@ Resultado *NT_Not::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Environme
     if (derTipo == "Boolean") {
         bool negation = !(derValor.toBool());
         resultado = new Resultado(negation);
+        resultado->miniResultado.EV = ef;
+        resultado->miniResultado.EF = ev;
+
+    }
+    else     if (derTipo == "Integer") {
+        bool negation = !(derValor.toInt());
+        resultado = new Resultado(negation);
+        resultado->miniResultado.EV = ef;
+        resultado->miniResultado.EF = ev;
+
     }
     else {
         // Unsupported operand type

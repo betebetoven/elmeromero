@@ -6,15 +6,19 @@ Environment::Environment() {}
 Environment::Environment(Environment* father) {
     if (father != nullptr) {
         symbol_table.insert(father->symbol_table.begin(), father->symbol_table.end());
+        this->placer = father->placer;
     }
+    else
+         this->placer = 0;
 }
 
 void Environment::addVariable(const std::string& name, const std::string& type, const std::variant<std::nullptr_t, int, float, std::string, bool>& content) {
-    std::cout << "si llega al addvariable de env" << std::endl;
+    //std::cout << "si llega al addvariable de env" << std::endl;
     if (!variableExists(name)) {
         //AbstractExpr*prueba;
-        VariableInfo variable_info{type, content};
+        VariableInfo variable_info{type, content,this->placer};
         symbol_table[name] = variable_info;
+         this->placer++;
     }
 }
 //...
@@ -35,7 +39,7 @@ void Environment::updateCommonVariables(Environment* other) {
 
 
 void Environment::updateVariable(const std::string& name, const std::variant<std::nullptr_t, int, float, std::string, bool>& newValue, const QString& newValueType) {
-    std::cout << "si llega al updateVariable de env" << std::endl;
+   // std::cout << "si llega al updateVariable de env" << std::endl;
     if (variableExists(name)) {
         QString varType = QString::fromStdString(getVariableType(name));
         if (varType == newValueType) {
@@ -56,7 +60,7 @@ std::string Environment::getVariableType(const std::string& name) {
 }
 
 bool Environment::variableExists(const std::string& name) {
-    std::cout << "si llega al variableexist de env" << std::endl;
+    //std::cout << "si llega al variableexist de env" << std::endl;
     return symbol_table.find(name) != symbol_table.end();
 }
 
@@ -67,6 +71,9 @@ void Environment::report() {
                   << ", Type: " << entry.second.type
                   << ", Content: ";
         print_variant(entry.second.content);
+         std::cout<< ", Placer:  "<<
+                    std::to_string(entry.second.placer);
+
         std::cout << std::endl;
     }
 }
@@ -80,4 +87,12 @@ std::variant<std::nullptr_t, int, float, std::string, bool> Environment::getVari
         return symbol_table[name].content;
     }
     return std::variant<std::nullptr_t, int, float, std::string, bool>{}; // Return
+}
+
+
+int Environment::getvariableplacer(const std::string& name) {
+    if (variableExists(name)) {
+        return symbol_table[name].placer;
+    }
+    return -1 ;// Return
 }

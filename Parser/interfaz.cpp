@@ -7,11 +7,11 @@ QString Clase3::Interfaz::Analaizar(std::string entrada) {
     this->Parser->set_debug_level(true);
 
     this->Parser->parse();
-std::cout << "Size of raiz in Analaizar: " << this->raiz.size() << std::endl;
-
-std::cout << "Class name of the first element in raiz: "
-                  << typeid(*this->raiz[0]).name() << std::endl;
-
+    std::cout << "#include <stdio.h> "<< std::endl
+                      << "float stack[100000];"<< std::endl
+                      << "float heap[100000];"<< std::endl
+                      << "float P;"<< std::endl
+                      << "float H;"<< std::endl;
 
     Environment *env = new Environment(nullptr);
     EnvironmentFunc *env2 = new EnvironmentFunc(nullptr);
@@ -21,6 +21,14 @@ std::cout << "Class name of the first element in raiz: "
       Resultado* temp = this->raiz[i]->Interpretar(env, env2, env3);
         /// es un return? es un break, es un continue, etc....
     }
+    int meta = MiniResultado::x -1;
+        std::cout << "float ";
+        for (int var = 0; var < meta; ++var) {
+            std::cout << "t" << var<< ", ";
+        }
+        std::cout << "t" << meta<< ";"<<std::endl;
+
+
 
     std::cout << "ACA ESTA LA ENV DEL MAIN: " << this->raiz.size() << std::endl;
     env->report();

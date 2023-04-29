@@ -10,48 +10,35 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
 
     Resultado* temp = new Resultado(nullptr);
 
-
+//ESTO ES EL BLOQUE PARA LAS FUNCIONES
     if (decl == nullptr && expr == nullptr && aumento == nullptr) {
        if (this->declaracionparametros.size() != 0)
        {
-
-
            for (int i = 0; i < this->declaracionparametros.size(); i++) {
-
                NT_DeclVar *t =dynamic_cast<NT_DeclVar*>( this->declaracionparametros[i]);
-               t->Expr = this->asignacionparametros[i];
-
+               //t->Expr = this->asignacionparametros[i];//lleva E al lote Expr en la declaracion para que no sea null
                temp = t->Interpretar(envv,ctx2,ctx3);
-
            }
-
-       }
-
+       }//ESTA ES LA FUNCION SIN PARAMETROS
         for (int i = 0; i < this->instrucciones.size(); i++) {
             temp = this->instrucciones[i]->Interpretar(envv,ctx2,ctx3);
 
         }
+    }
 
 
 
 
-
-
-    } else if (is_while){
+//ESTO ES UN WHILE O UN FOR TODAVIA NO SE JAJAJ
+    else if (is_while){
         if(decl != nullptr)
         Resultado *declResult = decl->Interpretar(envv,ctx2,ctx3);
-
-
         while (true) {
             Resultado *exprResult = expr->Interpretar(envv,ctx2,ctx3);
-            //std::cout<<"VALOR DE EXPR RESULT: "<<exprResult->getValor().toString().toStdString() <<std::endl;
             if (exprResult->getValor().toBool() == false) {
-
                     break;
             }
-
             for (int i = 0; i < this->instrucciones.size(); i++) {
-
                 temp = this->instrucciones[i]->Interpretar(envv,ctx2,ctx3);
                 if(temp!=nullptr)
                 {
@@ -61,43 +48,43 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
                     return nullptr;}
                 if(temp->getValor().toString().toStdString()=="continue"&&aumento != nullptr)
                 {
-                    //Resultado *aumentoResult = aumento->Interpretar(envv,ctx2);
                     break;
 
                 }}
-
-                //env->updateCommonVariables(envv);
-                // es un return? es un break, es un continue, etc....
             }
-
-
             if (aumento != nullptr)
             Resultado *aumentoResult = aumento->Interpretar(envv,ctx2,ctx3);
         }
     }
+
+
+ //ESTO ES UN IF
     else
     {
         Resultado *exprResult = expr->Interpretar(envv,ctx2,ctx3);
-        //std::cout<<"VALOR DE EXPR RESULT: "<<exprResult->getValor().toString().toStdString() <<std::endl;
-        if (exprResult->getValor().toBool()) {
-
-            for (int i = 0; i < this->instrucciones.size(); i++) {
+        if (exprResult->getValor().toBool())
+        {
+            for (int i = 0; i < this->instrucciones.size(); i++)
+            {
                 temp = this->instrucciones[i]->Interpretar(envv,ctx2,ctx3);
                 if(temp!=nullptr)
                 {
                 if(temp->getValor().toString().toStdString()=="break")
-                {env->updateCommonVariables(envv);
+                    {env->updateCommonVariables(envv);
                     env->report();
-                    return new Resultado(QString::fromStdString("break"));}
+                    return new Resultado(QString::fromStdString("break"));
+                    }
                 if(temp->getValor().toString().toStdString()=="continue"&&aumento != nullptr)
-                {
+                    {
                     env->updateCommonVariables(envv);
-                                        env->report();
-                                        return new Resultado(QString::fromStdString("continue"));
+                    env->report();
+                    return new Resultado(QString::fromStdString("continue"));
 
-                }}
+                    }
+                }
             }
         }
+        //ESTE ES EL BLOQUE DEL ELSE
         else if(elsebloque != nullptr)
         {
             Resultado *aux = elsebloque->Interpretar(env,ctx2,ctx3);

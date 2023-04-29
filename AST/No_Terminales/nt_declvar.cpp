@@ -1,25 +1,18 @@
 #include "nt_declvar.h"
 
 Resultado *NT_DeclVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, EnvironmentVect* ctx3) {
-    std::cout << "si llega al Interpretar de declvaar" << std::endl;
+
     Resultado* idR = this->ID->Interpretar(ctx,ctx2,ctx3);
     Resultado* tipoR = this->tipo->Interpretar(ctx,ctx2,ctx3);
-    std::cout << "si llega al declvar idR--    " << idR->getValor().toString().toStdString() <<std::endl;
-    std::cout << "si llega al declvar tipoR--    " << tipoR->getValor().toString().toStdString() <<std::endl;
-    // Check if Expr is not nullptr and evaluate it
+
     if (this->Expr) {
         Resultado* exprR = this->Expr->Interpretar(ctx,ctx2,ctx3);
-        std::cout << "si llega al declvar ExpR--    " << exprR->getValor().toString().toStdString() <<std::endl;
-        // Check if Expr is not nullptr and evaluate it
-        // Check if the types match before adding the variable
-        std::cout << "tipo de ExpR--    " << exprR->getTipo().toStdString() <<std::endl;
-        std::cout << "tipo de tipoR--    " << tipoR->getTipo().toStdString() <<std::endl;
+
         if (exprR->getTipo() == tipoR->getTipo()) {
             QString varName = idR->getValor().toString();
             std::string valueType = tipoR->getTipo().toStdString();
 
-            if (valueType == "Integer") {
-                std::cout << "si llega al If numero de declvaar" << std::endl;
+                        if (valueType == "Integer") {
                             ctx->addVariable(varName.toStdString(), valueType, exprR->getValor().toInt());
                         } else if (valueType == "Float") {
                             ctx->addVariable(varName.toStdString(), valueType, static_cast<float>(exprR->getValor().toDouble()));
@@ -28,19 +21,36 @@ Resultado *NT_DeclVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
                         } else if (valueType == "String") {
                             ctx->addVariable(varName.toStdString(), valueType, exprR->getValor().toString().toStdString());
                         }
-        } else {
-            // Handle type mismatch error
-            // You can return an error Resultado or throw an exception
-            // depending on your error handling strategy
-            //qDebug() << "Error: Type mismatch in variable declaration";
+        } else if(exprR->getTipo() == "Integer" && tipoR->getTipo() == "Boolean"){
+            QString varName = idR->getValor().toString();
+            std::string valueType = tipoR->getTipo().toStdString();
+            ctx->addVariable(varName.toStdString(), valueType, exprR->getValor().toInt());
+
+        }
+
+
+        else
+        {
+
             return nullptr;
         }
     } else {
-        // If Expr is nullptr, add the variable with an empty content
+
         QString varName = idR->getValor().toString();
-        ctx->addVariable(varName.toStdString(), tipoR->getTipo().toStdString(), nullptr);
+        std::string valueType = tipoR->getTipo().toStdString();
+
+        //ctx->addVariable(varName.toStdString(), tipoR->getTipo().toStdString(), nullptr);
+        if (valueType == "Integer") {
+            ctx->addVariable(varName.toStdString(), valueType, 1);
+        } else if (valueType == "Float") {
+            ctx->addVariable(varName.toStdString(), valueType, static_cast<float>(1.1));
+        } else if (valueType == "Boolean") {
+            ctx->addVariable(varName.toStdString(), valueType, false);
+        } else if (valueType == "String") {
+            ctx->addVariable(varName.toStdString(), valueType, "o");
+        }
     }
-    ctx->report();
+
     return nullptr;
 }
 QString NT_DeclVar::Graficar() {
@@ -69,7 +79,9 @@ QString NT_DeclVar::Graficar() {
 
 
 // constructor resumido c++-style
-NT_DeclVar::NT_DeclVar(AbstractExpr *tipo, AbstractExpr *id, AbstractExpr *expr) : tipo(tipo), ID(id), Expr(expr) {std::cout << "CREA DECLARACION" << std::endl;}
+NT_DeclVar::NT_DeclVar(AbstractExpr *tipo, AbstractExpr *id, AbstractExpr *expr) : tipo(tipo), ID(id), Expr(expr) {
+    //std::cout << "CREA DECLARACION" << std::endl;
+}
 
 //constructor tipo "java"
 NT_DeclVar::NT_DeclVar(AbstractExpr *tipo, AbstractExpr *id) {

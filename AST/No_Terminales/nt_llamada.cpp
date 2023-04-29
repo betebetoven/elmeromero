@@ -7,18 +7,14 @@ Resultado* NT_Llamada::Interpretar(Environment* env, EnvironmentFunc* ctx2, Envi
     this->nombre = varName;
     AbstractExpr* expr = ctx2->getVariableExpr(varName);
     
-    if (expr) {
-        // Call the Interpretar method of the retrieved AbstractExpr object
+    if (expr) {//EXPR ES UN BLOQUE
+
         if(this->asignacionparametros.size()!= 0)
         {
         Bloque *t =dynamic_cast<Bloque*>(expr);
         t->asignacionparametros = this->asignacionparametros;
         return t->Interpretar(env, ctx2,ctx3);
         }
-
-
-
-
 
         return expr->Interpretar(env, ctx2,ctx3);
     } 

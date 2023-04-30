@@ -45,7 +45,7 @@ void Environment::updateVariable(const std::string& name, const std::variant<std
         if (varType == newValueType) {
             symbol_table[name].content = newValue;
         } else {
-            std::cout << "Type mismatch. Cannot update the variable." << std::endl;
+            std::cout << "//juelagran" << std::endl;
         }
     }
 }

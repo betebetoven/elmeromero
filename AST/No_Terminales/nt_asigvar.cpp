@@ -45,6 +45,8 @@ Resultado *NT_AsigVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
         //qDebug() << "Error: Type mismatch in variable assignment";
         return nullptr;
     }
+    if(valueType!="Boolean")
+    {
     int pos = ctx->getvariableplacer(varName.toStdString());
     QString temporal = "t"+QString::fromStdString(std::to_string(MiniResultado::x));
     MiniResultado::x++;
@@ -53,8 +55,47 @@ Resultado *NT_AsigVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
     std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<expR->getValor().toFloat()<<";"<<std::endl;
     else
     std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<expR->miniResultado.temporales[0].toStdString()<<";"<<std::endl;
+    }
+    else
+    {
+        int pos = ctx->getvariableplacer(varName.toStdString());
+        QString temporal = "t"+QString::fromStdString(std::to_string(MiniResultado::x));
+        QString lsalida = "L"+QString::fromStdString(std::to_string(MiniResultado::L++));
+        MiniResultado::x++;
+        //ETIQUETA DE VERDADERO
+        for (int var = 0; var < expR->miniResultado.EV.size(); ++var) {
+        std::cout<<expR->miniResultado.EV[var].toStdString()<<":"<<std::endl;
+        }
+        std::cout<<temporal.toStdString()<<" = P + "<<pos<<std::endl;
+        if(expR->miniResultado.temporales.size()==0)
+        std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<"1"<<std::endl;
+        else
+        std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<expR->miniResultado.temporales[0].toStdString()<<std::endl;
+        //GOTO LSALIDA
+        std::cout<<"goto "<<lsalida.toStdString()<<";"<<std::endl;
 
-    ctx->report();
+
+        //ETIQUETA DE FALSO
+        for (int var = 0; var < expR->miniResultado.EF.size(); ++var) {
+        std::cout<<expR->miniResultado.EF[var].toStdString()<<":"<<std::endl;
+        }
+        std::cout<<temporal.toStdString()<<" = P + "<<pos<<std::endl;
+        if(expR->miniResultado.temporales.size()==0)
+        std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<"0"<<std::endl;
+        else
+        std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<expR->miniResultado.temporales[0].toStdString()<<std::endl;
+        //LSALIDA
+        std::cout<<lsalida.toStdString()<<":"<<std::endl;
+
+
+
+    }
+
+
+
+
+
+    //ctx->report();
     if(this->si)
     return expR;
     else

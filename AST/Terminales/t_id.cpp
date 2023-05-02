@@ -14,7 +14,7 @@ struct ResultadoVisitor {
 
 Resultado* T_ID::Interpretar(Environment* ctx,EnvironmentFunc* ctx2, EnvironmentVect* ctx3) {
     std::string id_str = this->id.toStdString();
-
+    std::cout<<"// obtenemos valor de "<< id_str<<std::endl;
     // Retrieve the variable content from the environment
     auto content = ctx->getVariableContent(id_str);
     int placer = ctx->getvariableplacer(id_str);
@@ -28,7 +28,7 @@ Resultado* T_ID::Interpretar(Environment* ctx,EnvironmentFunc* ctx2, Environment
         resultado->miniResultado.temporales.push_front(generado);
         MiniResultado::x++;
 
-
+std::cout<<"//__________ "<<std::endl;
     return resultado;
 }
 

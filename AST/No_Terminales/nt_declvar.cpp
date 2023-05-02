@@ -10,6 +10,7 @@ Resultado *NT_DeclVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
 
         if (exprR->getTipo() == tipoR->getTipo()) {
             QString varName = idR->getValor().toString();
+            std::cout<<"// declaracion de "<< varName.toStdString()<<std::endl;
             std::string valueType = tipoR->getTipo().toStdString();
 
                         if (valueType == "Integer") {
@@ -64,10 +65,11 @@ Resultado *NT_DeclVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
                             std::cout<<lsalida.toStdString()<<":"<<std::endl;
 
                         }
-
+            std::cout<<"//__________ "<<std::endl;
 
         } else if(exprR->getTipo() == "Integer" && tipoR->getTipo() == "Boolean"){
             QString varName = idR->getValor().toString();
+            std::cout<<"// declaracion de "<< varName.toStdString()<<std::endl;
             std::string valueType = tipoR->getTipo().toStdString();
 
             ctx->addVariable(varName.toStdString(), valueType, exprR->getValor().toInt());
@@ -79,7 +81,7 @@ Resultado *NT_DeclVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
             std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<exprR->getValor().toFloat()<<std::endl;
             else
             std::cout<<"stack[(int)"<<temporal.toStdString()<<"]= "<<exprR->miniResultado.temporales[0].toStdString()<<std::endl;
-
+            std::cout<<"//__________ "<<std::endl;
         }
 
 
@@ -103,6 +105,8 @@ Resultado *NT_DeclVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
         } else if (valueType == "String") {
             ctx->addVariable(varName.toStdString(), valueType, "o");
         }
+
+        std::cout<<"//__________ "<<std::endl;
     }
 
     return nullptr;

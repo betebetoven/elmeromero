@@ -4,11 +4,13 @@ NT_AsigVar::NT_AsigVar(AbstractExpr *id, AbstractExpr *expr, bool si) : ID(id), 
 
 // asignamos variables a la memoria
 Resultado *NT_AsigVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, EnvironmentVect* ctx3) {
+
     Resultado* idR = this->ID->Interpretar(ctx,ctx2,ctx3);
     Resultado* expR = this->Expr->Interpretar(ctx,ctx2,ctx3);
 
     // Get variable name and value from the Resultado objects
     QString varName = idR->getValor().toString();
+    std::cout<<"// asignacion de "<< varName.toStdString()<<std::endl;
     //Resultado*aux = new Resultado(ctx->getVariableContent(idR->getValor().toString().toStdString()));
     std::variant<std::nullptr_t, int, float, std::string, bool> variableContent = ctx->getVariableContent(idR->getValor().toString().toStdString());
 
@@ -93,7 +95,7 @@ Resultado *NT_AsigVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
 
 
 
-
+std::cout<<"//__________ "<<std::endl;
 
     //ctx->report();
     if(this->si)
@@ -101,9 +103,9 @@ Resultado *NT_AsigVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
     return expR;
     }
     else{
-        QString newtemp = "t"+QString::number(MiniResultado::x++);
-        std::cout<<newtemp.toStdString()<<" = "<< expR->miniResultado.temporales[0].toStdString()<<" -1;"<<std::endl;
-        aux->miniResultado.temporales.push_front(newtemp);
+        //QString newtemp = "t"+QString::number(MiniResultado::x++);
+        //std::cout<<newtemp.toStdString()<<" = "<< expR->miniResultado.temporales[0].toStdString()<<" -1;"<<std::endl;
+        aux->miniResultado.temporales.push_front(expR->miniResultado.temporales[1]);
         return aux;
     }
 }

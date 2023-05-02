@@ -77,26 +77,34 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
 
 
             //C3D SENTENCIAS
-            for (int i = 0; i < this->instrucciones.size(); i++) {
-                temp = this->instrucciones[i]->Interpretar(envv,ctx2,ctx3);
-                if(temp!=nullptr)
+        for (int i = 0; i < this->instrucciones.size(); i++)
+        {
+            Bloque* test = dynamic_cast<Bloque*>(this->instrucciones[i]);
+            if (test)
+            {
+                test->liniciodeciclo= this->liniciodeciclo;
+                test->lsalidadeciclo = this->lsalidadeciclo;
+                temp = test->Interpretar(envv,ctx2,ctx3);
+            }
+            else
+            {
+            temp = this->instrucciones[i]->Interpretar(envv,ctx2,ctx3);
+            if(temp!=nullptr)
                 {
-                if(temp->getValor().toString().toStdString()=="break")// aca se va al Lsalida
-                {env->updateCommonVariables(envv);
-                    //env->report();
-                    //return nullptr;
-                    std::cout<<"goto "<<this->lsalidadeciclo.toStdString()<<";"<<std::endl;
+                    if(temp->getValor().toString().toStdString()=="break")// aca se va al Lsalida
+                        {
+                            env->updateCommonVariables(envv);
+                            std::cout<<"goto "<<this->lsalidadeciclo.toStdString()<<";  //break en while"<<std::endl;
+                        }
+                    if(temp->getValor().toString().toStdString()=="continue"&&aumento != nullptr)//aca se va al Lincio
+                        {
+                            std::cout<<"goto "<<this->liniciodeciclo.toStdString()<<"; continue en for"<<std::endl;
+                        }
                 }
-                if(temp->getValor().toString().toStdString()=="continue"&&aumento != nullptr)//aca se va al Lincio
-                {
-                    std::cout<<"goto "<<this->liniciodeciclo.toStdString()<<";"<<std::endl;
-                    //break;
-
-                }}
-            //}
+            }
+        }
             if (aumento != nullptr)
             Resultado *aumentoResult = aumento->Interpretar(envv,ctx2,ctx3);//ACA SE ENCUENTRA EL AUMENTO QUE SE DA EN EL FOR PARTE DEL C3D INTERNO
-        }
             std::cout<<"goto "<<this->liniciodeciclo.toStdString()<<";"<<std::endl;
 
             for (int var = 0; var < ef.size(); ++var) {//IMPRESION DE ETIQUETAS DEL ELSE DEL C3D DE CONDICIONAL
@@ -154,19 +162,21 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
                 if(temp->getValor().toString().toStdString()=="break")
                     {env->updateCommonVariables(envv);
                     //env->report();
-                    return new Resultado(QString::fromStdString("break"));
+                    //return new Resultado(QString::fromStdString("break"));
+                    std::cout<<"goto "<<this->lsalidadeciclo.toStdString()<<";  //break en if"<<std::endl;
                     }
                 if(temp->getValor().toString().toStdString()=="continue"&&aumento != nullptr)
                     {
                     env->updateCommonVariables(envv);
                     //env->report();
-                    return new Resultado(QString::fromStdString("continue"));
+                    //return new Resultado(QString::fromStdString("continue"));
+                    std::cout<<"goto "<<this->liniciodeciclo.toStdString()<<"; //continue en if"<<std::endl;
 
                     }
                 }
             }
             lsalida = "L"+QString::number(MiniResultado::L++);
-            std::cout<<"goto "<<lsalida.toStdString()<<";"<<std::endl;
+            std::cout<<"goto "<<lsalida.toStdString()<<";"<<"   //se va a lsalida de if"<<std::endl;
 
         //else
 
@@ -182,7 +192,7 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
 
         }
 
-           std::cout<<lsalida.toStdString()<<":"<<std::endl;
+           std::cout<<lsalida.toStdString()<<":"<<"   //lsalida de if"<<std::endl;
 
 
 

@@ -7,6 +7,9 @@ QString Clase3::Interfaz::Analaizar(std::string entrada) {
     this->Parser->set_debug_level(true);
 
     this->Parser->parse();
+    //restart
+    MiniResultado::x = 0;
+    MiniResultado::L = 0;
     std::cout << "#include <stdio.h> "<< std::endl
                       << "float stack[100000];"<< std::endl
                       << "float heap[100000];"<< std::endl

@@ -13,6 +13,7 @@ Resultado *NT_Resta::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Environ
 
     QVariant izqValor = izqR->getValor();
     QVariant derValor = derR->getValor();
+     QString aux = "";
 
     Resultado *resultado;
 
@@ -31,6 +32,7 @@ Resultado *NT_Resta::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Environ
                 {
                     QString temp = izqR->miniResultado.temporales[0];
                     std::cout<<"t"<<MiniResultado::x<<"= "<<temp.toStdString()<<" - "<<derValor.toInt()<<std::endl;
+                    aux = temp;
                 }
                 else if(izqR->miniResultado.temporales.size()!=0 && derR->miniResultado.temporales.size()!=0 )
                 {
@@ -45,6 +47,7 @@ Resultado *NT_Resta::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Environ
                 QString generado = QString::fromStdString("t"+(std::to_string(MiniResultado::x)));
 
                 resultado->miniResultado.temporales.push_front(generado);
+                resultado->miniResultado.temporales.push_back(aux);
                 MiniResultado::x++;
 
     }
@@ -76,6 +79,7 @@ Resultado *NT_Resta::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Environ
                 QString generado = QString::fromStdString("t"+(std::to_string(MiniResultado::x)));
 
                 resultado->miniResultado.temporales.push_front(generado);
+
                 MiniResultado::x++;
     }
     // Integer - Boolean, Boolean - Integer, Boolean - Float, Float - Boolean, Boolean - Boolean

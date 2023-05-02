@@ -10,6 +10,7 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
 
     Resultado* temp = new Resultado(nullptr);
 
+
 //ESTO ES EL BLOQUE PARA LAS FUNCIONES
     if (decl == nullptr && expr == nullptr && aumento == nullptr) {
        if (this->declaracionparametros.size() != 0)
@@ -29,32 +30,82 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
 
 
 
-//ESTO ES UN WHILE O UN FOR TODAVIA NO SE JAJAJ
+//ESTO ES UN WHILE Y UN FOR JUELAGRANPUTA JAJAJAJA
     else if (is_while){
+        QString temporal = "";
+        QVector<QString> ev = {};
+        QVector<QString> ef = {};
+
         if(decl != nullptr)
-        Resultado *declResult = decl->Interpretar(envv,ctx2,ctx3);
-        while (true) {
-            Resultado *exprResult = expr->Interpretar(envv,ctx2,ctx3);
-            if (exprResult->getValor().toBool() == false) {
-                    break;
-            }
+        Resultado *declResult = decl->Interpretar(envv,ctx2,ctx3);//DECLARACION
+
+        this->liniciodeciclo ="L"+QString::number(MiniResultado::L++);//GENERACION DE LINICIO DE CICLO
+        this->lsalidadeciclo = "L"+QString::number(MiniResultado::L++);//GENERACION DE LSALIDA DE CICLO
+        std::cout<<this->liniciodeciclo.toStdString()<<":"<<std::endl;//IMPRESION LINICIO
+
+        Resultado *exprResult = expr->Interpretar(envv,ctx2,ctx3);//EXPRESION CONDICIONAL DEL FOR O DEL WHILE
+        if(exprResult->miniResultado.temporales.size()!=0)
+        {
+             temporal = exprResult->miniResultado.temporales[0];
+             ev.push_front( "L"+QString::number(MiniResultado::L++));
+            ef.push_front( "L"+QString::number(MiniResultado::L++));
+            std::cout<<"if("<<temporal.toStdString()<<") goto "<<ev[0].toStdString()<<";"<<std::endl;
+            std::cout<<"goto "<<ef[0].toStdString()<<std::endl;
+            std::cout<<ev[0].toStdString()<<":"<<std::endl;
+        }
+        else if(exprResult->miniResultado.EV.size() != 0 && exprResult->miniResultado.EF.size()!=0)
+        {
+            ev=exprResult->miniResultado.EV;
+           ef=exprResult->miniResultado.EF;
+           std::cout<<ev[0].toStdString()<<":"<<std::endl;
+
+        }
+        else
+        {
+            temporal = QString::number(exprResult->getValor().toBool());
+            ev.push_front( "L"+QString::number(MiniResultado::L++));
+           ef.push_front( "L"+QString::number(MiniResultado::L++));
+           std::cout<<"if("<<temporal.toStdString()<<") goto "<<ev[0].toStdString()<<";"<<std::endl;
+           std::cout<<"goto "<<ef[0].toStdString()<<std::endl;
+           std::cout<<ev[0].toStdString()<<":"<<std::endl;
+        }
+
+
+
+
+
+
+
+            //C3D SENTENCIAS
             for (int i = 0; i < this->instrucciones.size(); i++) {
                 temp = this->instrucciones[i]->Interpretar(envv,ctx2,ctx3);
                 if(temp!=nullptr)
                 {
-                if(temp->getValor().toString().toStdString()=="break")// aca puede ir el return como || pero primero hay que hacer las funcinoes
+                if(temp->getValor().toString().toStdString()=="break")// aca se va al Lsalida
                 {env->updateCommonVariables(envv);
                     //env->report();
-                    return nullptr;}
-                if(temp->getValor().toString().toStdString()=="continue"&&aumento != nullptr)
+                    //return nullptr;
+                    std::cout<<"goto "<<this->lsalidadeciclo.toStdString()<<";"<<std::endl;
+                }
+                if(temp->getValor().toString().toStdString()=="continue"&&aumento != nullptr)//aca se va al Lincio
                 {
-                    break;
+                    std::cout<<"goto "<<this->liniciodeciclo.toStdString()<<";"<<std::endl;
+                    //break;
 
                 }}
-            }
+            //}
             if (aumento != nullptr)
-            Resultado *aumentoResult = aumento->Interpretar(envv,ctx2,ctx3);
+            Resultado *aumentoResult = aumento->Interpretar(envv,ctx2,ctx3);//ACA SE ENCUENTRA EL AUMENTO QUE SE DA EN EL FOR PARTE DEL C3D INTERNO
         }
+            std::cout<<"goto "<<this->liniciodeciclo.toStdString()<<";"<<std::endl;
+
+            for (int var = 0; var < ef.size(); ++var) {//IMPRESION DE ETIQUETAS DEL ELSE DEL C3D DE CONDICIONAL
+            std::cout<<ef[var].toStdString()<<":"<<std::endl;
+            }
+
+
+            std::cout<<this->lsalidadeciclo.toStdString()<<":"<<std::endl;
+
     }
 
 

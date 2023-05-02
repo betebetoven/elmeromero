@@ -13,6 +13,8 @@ public:
     QVector<AbstractExpr*> asignacionparametros;
     QVector<AbstractExpr*> declaracionparametros;
     QVector<AbstractExpr*> instrucciones;
+    QString lsalidadeciclo = "";
+    QString liniciodeciclo = "";
 
 private:
 

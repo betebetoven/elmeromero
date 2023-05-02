@@ -97,9 +97,15 @@ Resultado *NT_AsigVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
 
     //ctx->report();
     if(this->si)
+    {
     return expR;
-    else
+    }
+    else{
+        QString newtemp = "t"+QString::number(MiniResultado::x++);
+        std::cout<<newtemp.toStdString()<<" = "<< expR->miniResultado.temporales[0].toStdString()<<" -1;"<<std::endl;
+        aux->miniResultado.temporales.push_front(newtemp);
         return aux;
+    }
 }
 
 

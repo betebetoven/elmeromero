@@ -72,7 +72,7 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
              temporal = exprResult->miniResultado.temporales[0];
              ev.push_front( "L"+QString::number(MiniResultado::L++));
             ef.push_front( "L"+QString::number(MiniResultado::L++));
-            std::cout<<"if("<<temporal.toStdString()<<") then goto "<<ev[0].toStdString()<<";"<<std::endl;
+            std::cout<<"if("<<temporal.toStdString()<<") goto "<<ev[0].toStdString()<<";"<<std::endl;
             std::cout<<"goto "<<ef[0].toStdString()<<std::endl;
             std::cout<<ev[0].toStdString()<<":"<<std::endl;
         }
@@ -88,7 +88,7 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
             temporal = QString::number(exprResult->getValor().toBool());
             ev.push_front( "L"+QString::number(MiniResultado::L++));
            ef.push_front( "L"+QString::number(MiniResultado::L++));
-           std::cout<<"if("<<temporal.toStdString()<<") then goto "<<ev[0].toStdString()<<";"<<std::endl;
+           std::cout<<"if("<<temporal.toStdString()<<") goto "<<ev[0].toStdString()<<";"<<std::endl;
            std::cout<<"goto "<<ef[0].toStdString()<<std::endl;
            std::cout<<ev[0].toStdString()<<":"<<std::endl;
         }

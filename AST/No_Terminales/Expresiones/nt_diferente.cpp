@@ -23,20 +23,20 @@ Resultado *NT_Diferente::Interpretar(Environment *ctx,EnvironmentFunc *ctx2, Env
         QString ef = "L" +QString::fromStdString(std::to_string(MiniResultado::L++));
         if(izqR->miniResultado.temporales.size()==0 && derR->miniResultado.temporales.size()==0 )
         {
-        std::cout<<"if("<<izqValor.toFloat() <<"!=" <<derValor.toFloat() << ") then goto "<<ev.toStdString() <<";"<<std::endl;
+        std::cout<<"if("<<izqValor.toFloat() <<"!=" <<derValor.toFloat() << ") goto "<<ev.toStdString() <<";"<<std::endl;
         std::cout<<"goto "<<ef.toStdString() <<";"<<std::endl;
         }
         else if(izqR->miniResultado.temporales.size()==0 && derR->miniResultado.temporales.size()!=0 )
         {
             QString temp = derR->miniResultado.temporales[0];
-            std::cout<<"if("<<izqValor.toFloat() <<"!=" <<temp.toStdString() << ") then goto "<<ev.toStdString() <<";"<<std::endl;
+            std::cout<<"if("<<izqValor.toFloat() <<"!=" <<temp.toStdString() << ") goto "<<ev.toStdString() <<";"<<std::endl;
             std::cout<<"goto "<<ef.toStdString() <<";"<<std::endl;
 
         }
         else if(izqR->miniResultado.temporales.size()!=0 && derR->miniResultado.temporales.size()==0 )
         {
             QString temp = izqR->miniResultado.temporales[0];
-            std::cout<<"if("<<temp.toStdString() <<"!=" <<derValor.toFloat() << ") then goto "<<ev.toStdString() <<";"<<std::endl;
+            std::cout<<"if("<<temp.toStdString() <<"!=" <<derValor.toFloat() << ") goto "<<ev.toStdString() <<";"<<std::endl;
             std::cout<<"goto "<<ef.toStdString() <<";"<<std::endl;
 
         }
@@ -44,7 +44,7 @@ Resultado *NT_Diferente::Interpretar(Environment *ctx,EnvironmentFunc *ctx2, Env
         {
             QString temp = izqR->miniResultado.temporales[0];
             QString temp2 = derR->miniResultado.temporales[0];
-            std::cout<<"if("<<temp.toStdString() <<"!=" <<temp2.toStdString() << ") then goto "<<ev.toStdString() <<";"<<std::endl;
+            std::cout<<"if("<<temp.toStdString() <<"!=" <<temp2.toStdString() << ") goto "<<ev.toStdString() <<";"<<std::endl;
             std::cout<<"goto "<<ef.toStdString() <<";"<<std::endl;
 
         }

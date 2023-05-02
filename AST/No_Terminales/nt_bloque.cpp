@@ -58,12 +58,43 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
     }
 
 
- //ESTO ES UN IF
+ //ESTO ES UN IF_____________________________________
     else
     {
+        QString temporal = "";
+        QVector<QString> ev = {};
+        QVector<QString> ef = {};
+        QString lsalida = "";
         Resultado *exprResult = expr->Interpretar(envv,ctx2,ctx3);
-        if (exprResult->getValor().toBool())
+
+        if(exprResult->miniResultado.temporales.size()!=0)
         {
+             temporal = exprResult->miniResultado.temporales[0];
+             ev.push_front( "L"+QString::number(MiniResultado::L++));
+            ef.push_front( "L"+QString::number(MiniResultado::L++));
+            std::cout<<"if("<<temporal.toStdString()<<") then goto "<<ev[0].toStdString()<<";"<<std::endl;
+            std::cout<<"goto "<<ef[0].toStdString()<<std::endl;
+            std::cout<<ev[0].toStdString()<<":"<<std::endl;
+        }
+        else if(exprResult->miniResultado.EV.size() != 0 && exprResult->miniResultado.EF.size()!=0)
+        {
+            ev=exprResult->miniResultado.EV;
+           ef=exprResult->miniResultado.EF;
+           std::cout<<ev[0].toStdString()<<":"<<std::endl;
+
+        }
+        else
+        {
+            temporal = QString::number(exprResult->getValor().toBool());
+            ev.push_front( "L"+QString::number(MiniResultado::L++));
+           ef.push_front( "L"+QString::number(MiniResultado::L++));
+           std::cout<<"if("<<temporal.toStdString()<<") then goto "<<ev[0].toStdString()<<";"<<std::endl;
+           std::cout<<"goto "<<ef[0].toStdString()<<std::endl;
+           std::cout<<ev[0].toStdString()<<":"<<std::endl;
+        }
+        //esto es el c3d sentencias
+
+
             for (int i = 0; i < this->instrucciones.size(); i++)
             {
                 temp = this->instrucciones[i]->Interpretar(envv,ctx2,ctx3);
@@ -83,14 +114,24 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
                     }
                 }
             }
-        }
-        //ESTE ES EL BLOQUE DEL ELSE
-        else if(elsebloque != nullptr)
+            lsalida = "L"+QString::number(MiniResultado::L++);
+            std::cout<<"goto "<<lsalida.toStdString()<<";"<<std::endl;
+
+        //else
+
+            for (int var = 0; var < ef.size(); ++var) {
+            std::cout<<ef[var].toStdString()<<":"<<std::endl;
+            }
+
+        //c3d de else
+            if(elsebloque != nullptr)
         {
             Resultado *aux = elsebloque->Interpretar(env,ctx2,ctx3);
-            return aux;
+            //return aux;
 
         }
+
+           std::cout<<lsalida.toStdString()<<":"<<std::endl;
 
 
 

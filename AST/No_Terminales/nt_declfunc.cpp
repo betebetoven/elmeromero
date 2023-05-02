@@ -6,10 +6,24 @@ Resultado *NT_DeclFunc::Interpretar(Environment *ctx, EnvironmentFunc* ctx2, Env
     AbstractExpr* aux= nullptr;
     Resultado* idR = this->ID->Interpretar(ctx, ctx2,ctx3);
     Resultado* tipoR = this->tipo->Interpretar(ctx, ctx2,ctx3);
+    //ctx->addVariable(tipoR)
+    QString varName = "returnn";
+    std::string valueType = tipoR->getTipo().toStdString();
+    if (valueType == "Integer") {
+        ctx->addVariable(varName.toStdString(), valueType, 1);
+    } else if (valueType == "Float") {
+        ctx->addVariable(varName.toStdString(), valueType, static_cast<float>(1.1));
+    } else if (valueType == "Boolean") {
+        ctx->addVariable(varName.toStdString(), valueType, false);
+    } else if (valueType == "String") {
+        ctx->addVariable(varName.toStdString(), valueType, "o");
+    }
+
+
     if (this->Expr) {
         //Resultado* exprR = this->Expr->Interpretar(ctx, ctx2,ctx3);
         if(this->declaraciones.size() != 0){
-            std::cout<<"SI ENTRA A LA SUMA DE LAS DECLARACIONES .............................................."<<std::endl;
+            //std::cout<<"SI ENTRA A LA SUMA DE LAS DECLARACIONES .............................................."<<std::endl;
             Bloque *t =dynamic_cast<Bloque*>( this->Expr);
             t->declaracionparametros = this->declaraciones;
             aux = t;

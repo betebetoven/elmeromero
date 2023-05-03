@@ -3,6 +3,8 @@
 
 Resultado *NT_DeclFunc::Interpretar(Environment *ctx, EnvironmentFunc* ctx2, EnvironmentVect* ctx3) {
 
+    QString LsalidadeFuncion = "L"+QString::number(MiniResultado::L++);
+    ctx->Lsalidafuncion = LsalidadeFuncion;
     AbstractExpr* aux= nullptr;
     Resultado* idR = this->ID->Interpretar(ctx, ctx2,ctx3);
     Resultado* tipoR = this->tipo->Interpretar(ctx, ctx2,ctx3);
@@ -34,7 +36,12 @@ Resultado *NT_DeclFunc::Interpretar(Environment *ctx, EnvironmentFunc* ctx2, Env
 
         QString varName = idR->getValor().toString();
         std::string valueType = tipoR->getTipo().toStdString();
+        if(varName != "main")
         std::cout<<"void "<<varName.toStdString()<<"() {"<<std::endl;
+        else
+        std::cout<<"int "<<varName.toStdString()<<"() {"<<std::endl;
+
+
         if (aux == nullptr)
         {
         ctx2->addVariable(varName.toStdString(), valueType, Expr);
@@ -45,7 +52,11 @@ Resultado *NT_DeclFunc::Interpretar(Environment *ctx, EnvironmentFunc* ctx2, Env
             ctx2->addVariable(varName.toStdString(), valueType,aux);
             Resultado* x = aux->Interpretar(ctx,ctx2,ctx3);
         }
+        std::cout<<LsalidadeFuncion.toStdString()<<":   //LSALIDA DE LA FUNCION"<<std::endl;
+        if(varName != "main")
         std::cout<<"return;"<<std::endl;
+        else
+        std::cout<<"return 0;"<<std::endl;
         std::cout<<"    }"<<std::endl;
 
     }

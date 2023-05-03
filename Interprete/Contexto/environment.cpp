@@ -7,6 +7,7 @@ Environment::Environment(Environment* father) {
     if (father != nullptr) {
         symbol_table.insert(father->symbol_table.begin(), father->symbol_table.end());
         this->placer = father->placer;
+        this->Lsalidafuncion = father->Lsalidafuncion;
     }
     else
          this->placer = 0;

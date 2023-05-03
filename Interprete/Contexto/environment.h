@@ -40,6 +40,7 @@ public:
     std::variant<std::nullptr_t, int, float, std::string, bool> getVariableContent(const std::string& name);
     int getvariableplacer(const std::string& name);
     std::map<std::string, VariableInfo> symbol_table;
+    QString Lsalidafuncion;
 };
 
 #endif // ENVIRONMENT_H

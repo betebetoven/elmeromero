@@ -50,7 +50,7 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
              ev.push_front( "L"+QString::number(MiniResultado::L++));
             ef.push_front( "L"+QString::number(MiniResultado::L++));
             std::cout<<"if("<<temporal.toStdString()<<") goto "<<ev[0].toStdString()<<";"<<std::endl;
-            std::cout<<"goto "<<ef[0].toStdString()<<std::endl;
+            std::cout<<"goto "<<ef[0].toStdString()<<";"<<std::endl;
             std::cout<<ev[0].toStdString()<<":"<<std::endl;
         }
         else if(exprResult->miniResultado.EV.size() != 0 && exprResult->miniResultado.EF.size()!=0)
@@ -66,7 +66,7 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
             ev.push_front( "L"+QString::number(MiniResultado::L++));
            ef.push_front( "L"+QString::number(MiniResultado::L++));
            std::cout<<"if("<<temporal.toStdString()<<") goto "<<ev[0].toStdString()<<";"<<std::endl;
-           std::cout<<"goto "<<ef[0].toStdString()<<std::endl;
+           std::cout<<"goto "<<ef[0].toStdString()<<";"<<std::endl;
            std::cout<<ev[0].toStdString()<<":"<<std::endl;
         }
 
@@ -132,7 +132,7 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
              ev.push_front( "L"+QString::number(MiniResultado::L++));
             ef.push_front( "L"+QString::number(MiniResultado::L++));
             std::cout<<"if("<<temporal.toStdString()<<") goto "<<ev[0].toStdString()<<";"<<std::endl;
-            std::cout<<"goto "<<ef[0].toStdString()<<std::endl;
+            std::cout<<"goto "<<ef[0].toStdString()<<";"<<std::endl;
             std::cout<<ev[0].toStdString()<<":"<<std::endl;
         }
         else if(exprResult->miniResultado.EV.size() != 0 && exprResult->miniResultado.EF.size()!=0)
@@ -148,7 +148,7 @@ Resultado* Bloque::Interpretar(Environment* env,EnvironmentFunc* ctx2, Environme
             ev.push_front( "L"+QString::number(MiniResultado::L++));
            ef.push_front( "L"+QString::number(MiniResultado::L++));
            std::cout<<"if("<<temporal.toStdString()<<") goto "<<ev[0].toStdString()<<";"<<std::endl;
-           std::cout<<"goto "<<ef[0].toStdString()<<std::endl;
+           std::cout<<"goto "<<ef[0].toStdString()<<";"<<std::endl;
            std::cout<<ev[0].toStdString()<<":"<<std::endl;
         }
         //esto es el c3d sentencias

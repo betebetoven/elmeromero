@@ -95,6 +95,9 @@ Resultado *NT_AsigVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
 
 
 
+if(varName == "return")
+    std::cout<<"goto "<<ctx->Lsalidafuncion.toStdString()<<";// se va a lsalida de funcion"<<std::endl;
+
 std::cout<<"//__________ "<<std::endl;
 
     //ctx->report();

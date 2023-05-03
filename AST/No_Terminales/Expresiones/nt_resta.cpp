@@ -22,23 +22,23 @@ Resultado *NT_Resta::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Environ
         int diff = izqValor.toInt() - derValor.toInt();
 
         if(izqR->miniResultado.temporales.size()==0 && derR->miniResultado.temporales.size()==0 )
-                std::cout<<"t"<<MiniResultado::x<<"= "<<izqValor.toInt() <<" - "<<derValor.toInt()<<std::endl;
+                std::cout<<"t"<<MiniResultado::x<<"= "<<izqValor.toInt() <<" - "<<derValor.toInt()<<";"<<std::endl;
                 else if(izqR->miniResultado.temporales.size()==0 && derR->miniResultado.temporales.size()!=0 )
                 {
                     QString temp = derR->miniResultado.temporales[0];
-                    std::cout<<"t"<<MiniResultado::x<<"= "<<izqValor.toInt() <<" - "<<temp.toStdString()<<std::endl;
+                    std::cout<<"t"<<MiniResultado::x<<"= "<<izqValor.toInt() <<" - "<<temp.toStdString()<<";"<<std::endl;
                 }
                 else if(izqR->miniResultado.temporales.size()!=0 && derR->miniResultado.temporales.size()==0 )
                 {
                     QString temp = izqR->miniResultado.temporales[0];
-                    std::cout<<"t"<<MiniResultado::x<<"= "<<temp.toStdString()<<" - "<<derValor.toInt()<<std::endl;
+                    std::cout<<"t"<<MiniResultado::x<<"= "<<temp.toStdString()<<" - "<<derValor.toInt()<<";"<<std::endl;
                     aux = temp;
                 }
                 else if(izqR->miniResultado.temporales.size()!=0 && derR->miniResultado.temporales.size()!=0 )
                 {
                     QString temp = izqR->miniResultado.temporales[0];
                     QString temp2 = derR->miniResultado.temporales[0];
-                    std::cout<<"t"<<MiniResultado::x<<"= "<<temp.toStdString()<<" - "<<temp2.toStdString()<<std::endl;
+                    std::cout<<"t"<<MiniResultado::x<<"= "<<temp.toStdString()<<" - "<<temp2.toStdString()<<";"<<std::endl;
                 }
 
 
@@ -55,22 +55,22 @@ Resultado *NT_Resta::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Environ
     else if ((izqTipo == "Integer" && derTipo == "Float") || (izqTipo == "Float" && derTipo == "Integer") || (izqTipo == "Float" && derTipo == "Float")) {
         float diff = izqValor.toFloat() - derValor.toFloat();
         if(izqR->miniResultado.temporales.size()==0 && derR->miniResultado.temporales.size()==0 )
-                std::cout<<"t"<<MiniResultado::x<<"= "<<izqValor.toFloat() <<" - "<<derValor.toFloat()<<std::endl;
+                std::cout<<"t"<<MiniResultado::x<<"= "<<izqValor.toFloat() <<" - "<<derValor.toFloat()<<";"<<std::endl;
                 else if(izqR->miniResultado.temporales.size()==0 && derR->miniResultado.temporales.size()!=0 )
                 {
                     QString temp = derR->miniResultado.temporales[0];
-                    std::cout<<"t"<<MiniResultado::x<<"= "<<izqValor.toFloat() <<" - "<<temp.toStdString()<<std::endl;
+                    std::cout<<"t"<<MiniResultado::x<<"= "<<izqValor.toFloat() <<" - "<<temp.toStdString()<<";"<<std::endl;
                 }
                 else if(izqR->miniResultado.temporales.size()!=0 && derR->miniResultado.temporales.size()==0 )
                 {
                     QString temp = izqR->miniResultado.temporales[0];
-                    std::cout<<"t"<<MiniResultado::x<<"= "<<temp.toStdString()<<" - "<<derValor.toFloat()<<std::endl;
+                    std::cout<<"t"<<MiniResultado::x<<"= "<<temp.toStdString()<<" - "<<derValor.toFloat()<<";"<<std::endl;
                 }
                 else if(izqR->miniResultado.temporales.size()!=0 && derR->miniResultado.temporales.size()!=0 )
                 {
                     QString temp = izqR->miniResultado.temporales[0];
                     QString temp2 = derR->miniResultado.temporales[0];
-                    std::cout<<"t"<<MiniResultado::x<<"= "<<temp.toStdString()<<" - "<<temp2.toStdString()<<std::endl;
+                    std::cout<<"t"<<MiniResultado::x<<"= "<<temp.toStdString()<<" - "<<temp2.toStdString()<<";"<<std::endl;
                 }
 
 

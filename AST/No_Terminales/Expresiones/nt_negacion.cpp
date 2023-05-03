@@ -25,7 +25,7 @@ Resultado *NT_Negacion::Interpretar(Environment *ctx, EnvironmentFunc *ctx2, Env
         if(derR->miniResultado.temporales.size()!=0 )
         {
             QString temp = derR->miniResultado.temporales[0];
-            std::cout<<"t"<<MiniResultado::x<<"= "<<izqValor.toInt() <<" - "<<temp.toStdString()<<std::endl;
+            std::cout<<"t"<<MiniResultado::x<<"= "<<izqValor.toInt() <<" - "<<temp.toStdString()<<";"<<std::endl;
             resultado = new Resultado(diff);
             QString generado = QString::fromStdString("t"+(std::to_string(MiniResultado::x)));
 
@@ -43,7 +43,7 @@ Resultado *NT_Negacion::Interpretar(Environment *ctx, EnvironmentFunc *ctx2, Env
         if(derR->miniResultado.temporales.size()!=0 )
         {
             QString temp = derR->miniResultado.temporales[0];
-            std::cout<<"t"<<MiniResultado::x<<"= "<<izqValor.toFloat() <<" - "<<temp.toStdString()<<std::endl;
+            std::cout<<"t"<<MiniResultado::x<<"= "<<izqValor.toFloat() <<" - "<<temp.toStdString()<<";"<<std::endl;
             resultado = new Resultado(diff);
             QString generado = QString::fromStdString("t"+(std::to_string(MiniResultado::x)));
 
@@ -61,7 +61,7 @@ Resultado *NT_Negacion::Interpretar(Environment *ctx, EnvironmentFunc *ctx2, Env
         if(derR->miniResultado.temporales.size()!=0 )
         {
             QString temp = derR->miniResultado.temporales[0];
-            std::cout<<"t"<<MiniResultado::x<<"= "<<izqValor.toInt() <<" - "<<temp.toStdString()<<std::endl;
+            std::cout<<"t"<<MiniResultado::x<<"= "<<izqValor.toInt() <<" - "<<temp.toStdString()<<";"<<std::endl;
             resultado = new Resultado(diff);
             QString generado = QString::fromStdString("t"+(std::to_string(MiniResultado::x)));
             resultado->miniResultado.temporales.push_front(generado);

@@ -415,6 +415,7 @@ expr: expr SUMA expr   { $$ = new NT_Suma($1, $3);  }
     | MENOS expr %prec NEG  { $$ = new NT_Negacion($2);  }
     | NUMERO { $$ = new T_Numero( QString::fromStdString($1)); }
     | ID { $$ = new T_ID( QString::fromStdString($1)); }
+    |llamada {$$=$1;}
     | STRING { $$ = new T_String( QString::fromStdString($1));  }
     | FLOAT { $$ = new T_Float( QString::fromStdString($1));  }
     | TRUE { $$ = new T_Boolean( QString::fromStdString("true"));  }

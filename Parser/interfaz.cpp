@@ -10,11 +10,27 @@ QString Clase3::Interfaz::Analaizar(std::string entrada) {
     //restart
     MiniResultado::x = 0;
     MiniResultado::L = 0;
+    QString t1 = "t"+QString::number(MiniResultado::x++);
+    QString t2 = "t"+QString::number(MiniResultado::x++);
+    QString L1 = "L"+QString::number(MiniResultado::L++);
+    QString L2 = "L"+QString::number(MiniResultado::L++);
     std::cout << "#include <stdio.h> "<< std::endl
                       << "float stack[100000];"<< std::endl
                       << "float heap[100000];"<< std::endl
                       << "float P;"<< std::endl
-                      << "float H;"<< std::endl;
+                      << "float H;"<< std::endl
+    << "void imprimir () {"<< std::endl
+    << t1.toStdString()<<" = stack[(int)P];"<< std::endl
+    << t2.toStdString()<<" = heap[(int)"<<t1.toStdString()<<"];"<< std::endl
+    << L1.toStdString()<<":"<< std::endl
+    << "if ("<<t2.toStdString()<<" ==-1) goto "<< L2.toStdString()<<";"<< std::endl
+    << "printf(\"%c\", (int)"<<t2.toStdString()<<");"<< std::endl
+    << t1.toStdString()<<" = "<<t1.toStdString()<<" + 1;"<< std::endl
+    << t2.toStdString()<<" = heap[(int)"<<t1.toStdString()<<"];"<< std::endl
+    << "goto "<< L1.toStdString()<<";"<< std::endl
+    << L2.toStdString()<<":"<< std::endl
+    << "return;}"<< std::endl;
+
 
     Environment *env = new Environment(nullptr);
     EnvironmentFunc *env2 = new EnvironmentFunc(nullptr);

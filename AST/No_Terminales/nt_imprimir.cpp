@@ -3,9 +3,23 @@
 
 Resultado *NT_Imprimir::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, EnvironmentVect* ctx3) {
     Resultado* r = this->lista_expr->Interpretar(ctx, ctx2,ctx3);
+    if(r->getTipo()=="String")
+    {
+        QString temporal = r->miniResultado.temporales[0];
+        QString tposicion ="t"+QString::number(MiniResultado::x++);
+        std::cout<<tposicion.toStdString()<<" = P + "<<ctx->placer<<";"<<std::endl;
+        std::cout<<"stack[(int)"<<tposicion.toStdString()<<"] = "<<temporal.toStdString()<<";"<<std::endl;
+        std::cout<<"P = P +"<<ctx->placer<<";"<<std::endl
+                <<"imprimir();"<<std::endl
+               <<"P = P -"<<ctx->placer<<";"<<std::endl;
+
+
+    }
+
+
     //std::cout<<r->getValor().toString().toStdString()<<std::endl;
     std::string output = r->getValor().toString().toStdString() + "\n";
-        std::cout << output;
+        std::cout <<"//imprime: "<< output;
         std::ofstream outFile("C:\\Users\\alber\\OneDrive\\Documentos\\untitled\\AST\\No_Terminales\\consola.txt", std::ios_base::app);
             if (outFile.is_open()) {
                 outFile << output;

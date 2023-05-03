@@ -165,7 +165,7 @@ del parser al escaner evitando crear variables globales
 %type<AbstractExpr*>   declaracion_var escapa lista_Expr declaracion_void llamada declaracion_vector;
 %type<QVector<AbstractExpr*>*> s lSentencia lasig lparam;
 %type<AbstractExpr*> sentencia asignacion_var aumento decremento;
-%type<AbstractExpr*> expr tipo cond x;
+%type<AbstractExpr*> expr tipo cond x retornovalor;
 %type<AbstractExpr*> bloque  ciclo_for ciclo_while ins_if;
 %type<NT_Imprimir*> imprimir;
 
@@ -223,6 +223,7 @@ sentencia: declaracion_var {$$ = $1;}
     |ciclo_while{$$=$1;}
     | ins_if{$$=$1;}
     |escapa {$$=$1;}
+    |retornovalor {$$=$1;}
     |declaracion_void {$$=$1;}
     |llamada {$$=$1;}
     |declaracion_vector {$$=$1;}
@@ -245,7 +246,9 @@ escapa: BREAK { $$ = new NT_Escape(QString::fromStdString("break"));}
     | CONTINUE { $$ = new NT_Escape(QString::fromStdString("continue"));}
     | RETORNO { $$ = new NT_Escape(QString::fromStdString("return"));}           
     ;
-
+retornovalor: RETORNO x { NT_ID* id_avar = new NT_ID(QString::fromStdString("return"));
+                            $$ = new NT_AsigVar(id_avar, $2,true);}
+    
 
  ;
 llamada: ID '(' lparam ')' { 

@@ -447,6 +447,7 @@ namespace yy {
       // ciclo_while
       // ins_if
       // escapa
+      // retornovalor
       // llamada
       // aumento
       // decremento
@@ -682,24 +683,25 @@ namespace yy {
         S_ciclo_while = 75,                      // ciclo_while
         S_ins_if = 76,                           // ins_if
         S_escapa = 77,                           // escapa
-        S_llamada = 78,                          // llamada
-        S_aumento = 79,                          // aumento
-        S_decremento = 80,                       // decremento
-        S_imprimir = 81,                         // imprimir
-        S_lista_Expr = 82,                       // lista_Expr
-        S_bloque = 83,                           // bloque
-        S_z = 84,                                // z
-        S_declaracion_void = 85,                 // declaracion_void
-        S_lasig = 86,                            // lasig
-        S_lparam = 87,                           // lparam
-        S_declaracion_var = 88,                  // declaracion_var
-        S_declaracion_vector = 89,               // declaracion_vector
-        S_asignacion_var = 90,                   // asignacion_var
-        S_x = 91,                                // x
-        S_cond = 92,                             // cond
-        S_oprel = 93,                            // oprel
-        S_expr = 94,                             // expr
-        S_tipo = 95                              // tipo
+        S_retornovalor = 78,                     // retornovalor
+        S_llamada = 79,                          // llamada
+        S_aumento = 80,                          // aumento
+        S_decremento = 81,                       // decremento
+        S_imprimir = 82,                         // imprimir
+        S_lista_Expr = 83,                       // lista_Expr
+        S_bloque = 84,                           // bloque
+        S_z = 85,                                // z
+        S_declaracion_void = 86,                 // declaracion_void
+        S_lasig = 87,                            // lasig
+        S_lparam = 88,                           // lparam
+        S_declaracion_var = 89,                  // declaracion_var
+        S_declaracion_vector = 90,               // declaracion_vector
+        S_asignacion_var = 91,                   // asignacion_var
+        S_x = 92,                                // x
+        S_cond = 93,                             // cond
+        S_oprel = 94,                            // oprel
+        S_expr = 95,                             // expr
+        S_tipo = 96                              // tipo
       };
     };
 
@@ -741,6 +743,7 @@ namespace yy {
       case symbol_kind::S_ciclo_while: // ciclo_while
       case symbol_kind::S_ins_if: // ins_if
       case symbol_kind::S_escapa: // escapa
+      case symbol_kind::S_retornovalor: // retornovalor
       case symbol_kind::S_llamada: // llamada
       case symbol_kind::S_aumento: // aumento
       case symbol_kind::S_decremento: // decremento
@@ -886,6 +889,7 @@ switch (yykind)
       case symbol_kind::S_ciclo_while: // ciclo_while
       case symbol_kind::S_ins_if: // ins_if
       case symbol_kind::S_escapa: // escapa
+      case symbol_kind::S_retornovalor: // retornovalor
       case symbol_kind::S_llamada: // llamada
       case symbol_kind::S_aumento: // aumento
       case symbol_kind::S_decremento: // decremento
@@ -2053,10 +2057,10 @@ switch (yykind)
     static const signed char yydefact_[];
 
     // YYPGOTO[NTERM-NUM].
-    static const short yypgoto_[];
+    static const signed char yypgoto_[];
 
     // YYDEFGOTO[NTERM-NUM].
-    static const signed char yydefgoto_[];
+    static const short yydefgoto_[];
 
     // YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
     // positive, shift that token.  If negative, reduce the rule whose
@@ -2305,9 +2309,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 427,     ///< Last index in yytable_.
-      yynnts_ = 26,  ///< Number of nonterminal symbols.
-      yyfinal_ = 47 ///< Termination state number.
+      yylast_ = 409,     ///< Last index in yytable_.
+      yynnts_ = 27,  ///< Number of nonterminal symbols.
+      yyfinal_ = 62 ///< Termination state number.
     };
 
 
@@ -2386,6 +2390,7 @@ switch (yykind)
       case symbol_kind::S_ciclo_while: // ciclo_while
       case symbol_kind::S_ins_if: // ins_if
       case symbol_kind::S_escapa: // escapa
+      case symbol_kind::S_retornovalor: // retornovalor
       case symbol_kind::S_llamada: // llamada
       case symbol_kind::S_aumento: // aumento
       case symbol_kind::S_decremento: // decremento
@@ -2459,6 +2464,7 @@ switch (yykind)
       case symbol_kind::S_ciclo_while: // ciclo_while
       case symbol_kind::S_ins_if: // ins_if
       case symbol_kind::S_escapa: // escapa
+      case symbol_kind::S_retornovalor: // retornovalor
       case symbol_kind::S_llamada: // llamada
       case symbol_kind::S_aumento: // aumento
       case symbol_kind::S_decremento: // decremento
@@ -2560,7 +2566,7 @@ switch (yykind)
   }
 
 } // yy
-#line 2564 "parser.hpp"
+#line 2570 "parser.hpp"
 
 
 

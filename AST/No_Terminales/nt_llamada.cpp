@@ -23,7 +23,7 @@ Resultado* NT_Llamada::Interpretar(Environment* env, EnvironmentFunc* ctx2, Envi
                 QString temporalindice = "t"+QString::number(MiniResultado::x++);
                 std::cout<<temporalindice.toStdString()<<" = "<<temporalposicion.toStdString()<<" + "<<var+1<<";"<<std::endl;
                 Resultado* p = this->asignacionparametros[var]->Interpretar(env,ctx2,ctx3);
-                if(p->miniResultado.temporales.size()!=0)
+                if(p->miniResultado.EV.size()==0)
                 aux = p;
 
                 //aqui es donde verificamos si termporal trae etiquetas, temporal, o valor

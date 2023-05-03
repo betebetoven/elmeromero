@@ -15,6 +15,31 @@ Resultado *NT_Imprimir::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envi
 
 
     }
+    else if(r->miniResultado.temporales.size()!=0)
+    {
+        QString temporal = r->miniResultado.temporales[0];
+        if(r->getTipo()=="Integer")
+            std::cout<<"printf(\"%d\", (int)"<<temporal.toStdString()<<");"<<std::endl;
+        else if(r->getTipo()=="Float")
+            std::cout<<"printf(\"%f\", "<<temporal.toStdString()<<");"<<std::endl;
+        else if(r->getTipo()=="Boolean")
+            std::cout<<"printf(\"%d\", "<<temporal.toStdString()<<");"<<std::endl;
+    }
+    else
+    {
+        std::string temporal = r->getValor().toString().toStdString() + "\n";
+        if(r->getTipo()=="Integer")
+            std::cout<<"printf(\"%d\", (int)"<<temporal<<");"<<std::endl;
+        else if(r->getTipo()=="Float")
+            std::cout<<"printf(\"%f\", "<<temporal<<");"<<std::endl;
+        else if(r->getTipo()=="Boolean")
+            std::cout<<"printf(\"%d\", "<<temporal<<");"<<std::endl;
+    }
+
+    std::cout<<"printf(\"%c\", (int)10);"<<std::endl
+            <<"printf(\"%c\", (int)13);"<<std::endl;
+
+
 
 
     //std::cout<<r->getValor().toString().toStdString()<<std::endl;

@@ -162,7 +162,7 @@ del parser al escaner evitando crear variables globales
 %parse-param {void *scanner} {yy::location& loc} { class Clase3::Interfaz & intr }
 
 
-%type<AbstractExpr*>   declaracion_var escapa lista_Expr declaracion_void llamada declaracion_vector;
+%type<AbstractExpr*>   declaracion_var escapa declaracion_void llamada declaracion_vector;
 %type<QVector<AbstractExpr*>*> s lSentencia lasig lparam;
 %type<AbstractExpr*> sentencia asignacion_var aumento decremento;
 %type<AbstractExpr*> expr tipo cond x retornovalor;
@@ -277,14 +277,21 @@ decremento: DECREMENT ID {            NT_ID* id_avar2 = new NT_ID(QString::fromS
                                 T_ID* id_avar = new T_ID(QString::fromStdString($1));
                                 $$ = new NT_AsigVar(id_avar2,new NT_Resta(id_avar, new T_Numero( QString::fromStdString("1"))),false ); }
 ;
-imprimir: IMPR '(' lista_Expr ')' { $$ = new NT_Imprimir($3); }
+
+
+
+//imprimir: IMPR '(' lista_Expr ')' { $$ = new NT_Imprimir($3); }
+    //;
+
+imprimir: IMPR '(' lparam ')' { $$ = new NT_Imprimir(*$3); }
     ;
 
 
-lista_Expr: lista_Expr ','  x {   $$ = new NT_Suma($1, $3);
-                                }
-    | x { $$ = $1;}
-    ;
+
+//lista_Expr: lista_Expr ','  x {   $$ = new NT_Suma($1, $3);
+ //                               }
+//    | x { $$ = $1;}
+ //   ;
 
 
 

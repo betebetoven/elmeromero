@@ -451,7 +451,6 @@ namespace yy {
       // llamada
       // aumento
       // decremento
-      // lista_Expr
       // bloque
       // declaracion_void
       // declaracion_var
@@ -688,20 +687,19 @@ namespace yy {
         S_aumento = 80,                          // aumento
         S_decremento = 81,                       // decremento
         S_imprimir = 82,                         // imprimir
-        S_lista_Expr = 83,                       // lista_Expr
-        S_bloque = 84,                           // bloque
-        S_z = 85,                                // z
-        S_declaracion_void = 86,                 // declaracion_void
-        S_lasig = 87,                            // lasig
-        S_lparam = 88,                           // lparam
-        S_declaracion_var = 89,                  // declaracion_var
-        S_declaracion_vector = 90,               // declaracion_vector
-        S_asignacion_var = 91,                   // asignacion_var
-        S_x = 92,                                // x
-        S_cond = 93,                             // cond
-        S_oprel = 94,                            // oprel
-        S_expr = 95,                             // expr
-        S_tipo = 96                              // tipo
+        S_bloque = 83,                           // bloque
+        S_z = 84,                                // z
+        S_declaracion_void = 85,                 // declaracion_void
+        S_lasig = 86,                            // lasig
+        S_lparam = 87,                           // lparam
+        S_declaracion_var = 88,                  // declaracion_var
+        S_declaracion_vector = 89,               // declaracion_vector
+        S_asignacion_var = 90,                   // asignacion_var
+        S_x = 91,                                // x
+        S_cond = 92,                             // cond
+        S_oprel = 93,                            // oprel
+        S_expr = 94,                             // expr
+        S_tipo = 95                              // tipo
       };
     };
 
@@ -747,7 +745,6 @@ namespace yy {
       case symbol_kind::S_llamada: // llamada
       case symbol_kind::S_aumento: // aumento
       case symbol_kind::S_decremento: // decremento
-      case symbol_kind::S_lista_Expr: // lista_Expr
       case symbol_kind::S_bloque: // bloque
       case symbol_kind::S_declaracion_void: // declaracion_void
       case symbol_kind::S_declaracion_var: // declaracion_var
@@ -893,7 +890,6 @@ switch (yykind)
       case symbol_kind::S_llamada: // llamada
       case symbol_kind::S_aumento: // aumento
       case symbol_kind::S_decremento: // decremento
-      case symbol_kind::S_lista_Expr: // lista_Expr
       case symbol_kind::S_bloque: // bloque
       case symbol_kind::S_declaracion_void: // declaracion_void
       case symbol_kind::S_declaracion_var: // declaracion_var
@@ -2060,7 +2056,7 @@ switch (yykind)
     static const short yypgoto_[];
 
     // YYDEFGOTO[NTERM-NUM].
-    static const short yydefgoto_[];
+    static const signed char yydefgoto_[];
 
     // YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
     // positive, shift that token.  If negative, reduce the rule whose
@@ -2309,8 +2305,8 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 438,     ///< Last index in yytable_.
-      yynnts_ = 27,  ///< Number of nonterminal symbols.
+      yylast_ = 435,     ///< Last index in yytable_.
+      yynnts_ = 26,  ///< Number of nonterminal symbols.
       yyfinal_ = 63 ///< Termination state number.
     };
 
@@ -2394,7 +2390,6 @@ switch (yykind)
       case symbol_kind::S_llamada: // llamada
       case symbol_kind::S_aumento: // aumento
       case symbol_kind::S_decremento: // decremento
-      case symbol_kind::S_lista_Expr: // lista_Expr
       case symbol_kind::S_bloque: // bloque
       case symbol_kind::S_declaracion_void: // declaracion_void
       case symbol_kind::S_declaracion_var: // declaracion_var
@@ -2468,7 +2463,6 @@ switch (yykind)
       case symbol_kind::S_llamada: // llamada
       case symbol_kind::S_aumento: // aumento
       case symbol_kind::S_decremento: // decremento
-      case symbol_kind::S_lista_Expr: // lista_Expr
       case symbol_kind::S_bloque: // bloque
       case symbol_kind::S_declaracion_void: // declaracion_void
       case symbol_kind::S_declaracion_var: // declaracion_var
@@ -2566,7 +2560,7 @@ switch (yykind)
   }
 
 } // yy
-#line 2570 "parser.hpp"
+#line 2564 "parser.hpp"
 
 
 

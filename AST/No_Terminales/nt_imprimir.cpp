@@ -2,7 +2,11 @@
 #include <fstream>
 
 Resultado *NT_Imprimir::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, EnvironmentVect* ctx3) {
-    Resultado* r = this->lista_expr->Interpretar(ctx, ctx2,ctx3);
+    Resultado *aux;
+
+    for (int var = 0; var < this->lista_expr.size(); ++var) {
+    Resultado* r = this->lista_expr[var]->Interpretar(ctx, ctx2,ctx3);
+    aux = r;
     if(r->getTipo()=="String")
     {
         QString temporal = r->miniResultado.temporales[0];
@@ -36,14 +40,17 @@ Resultado *NT_Imprimir::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envi
             std::cout<<"printf(\"%d\", "<<temporal<<");"<<std::endl;
     }
 
+
+
+
+
+
+}
     std::cout<<"printf(\"%c\", (int)10);"<<std::endl
             <<"printf(\"%c\", (int)13);"<<std::endl;
 
-
-
-
     //std::cout<<r->getValor().toString().toStdString()<<std::endl;
-    std::string output = r->getValor().toString().toStdString() + "\n";
+     std::string output = aux->getValor().toString().toStdString() + "\n";
         std::cout <<"//imprime: "<< output;
         std::ofstream outFile("C:\\Users\\alber\\OneDrive\\Documentos\\untitled\\AST\\No_Terminales\\consola.txt", std::ios_base::app);
             if (outFile.is_open()) {
@@ -52,13 +59,16 @@ Resultado *NT_Imprimir::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envi
             } else {
                 std::cerr << "Unable to open file 'consola.txt'\n";
             }
-    return r;
+
+
+
+    return aux;
 }
 
 QString NT_Imprimir::Graficar() {
     std::stringstream pPosicion, lPosicion;
     pPosicion << (void *) this;
-    lPosicion << (void *) this->lista_expr;
+    lPosicion << (void *) this->lista_expr[0];
 
 
     QString nodo = QString::fromStdString("n" + pPosicion.str() +
@@ -70,7 +80,7 @@ QString NT_Imprimir::Graficar() {
 
     nodo += QString::fromStdString("n" + pPosicion.str() + " -> n"
                                    + lPosicion.str() + ";\n");
-    nodo += this->lista_expr->Graficar();
+    nodo += this->lista_expr[0]->Graficar();
 
     nodo += QString::fromStdString("n" + pPosicion.str() + "2" +
                                    " [ label=\")\" fillcolor=\"#8f09b8\"];\n");
@@ -81,7 +91,7 @@ QString NT_Imprimir::Graficar() {
 
 }
 
-NT_Imprimir::NT_Imprimir(AbstractExpr *nodo) {
-    this->lista_expr = nodo;
+NT_Imprimir::NT_Imprimir(const QVector<AbstractExpr*>&nodo):lista_expr(nodo) {
+
 }
 

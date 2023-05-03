@@ -7,7 +7,7 @@ Resultado *NT_DeclFunc::Interpretar(Environment *ctx, EnvironmentFunc* ctx2, Env
     Resultado* idR = this->ID->Interpretar(ctx, ctx2,ctx3);
     Resultado* tipoR = this->tipo->Interpretar(ctx, ctx2,ctx3);
     //ctx->addVariable(tipoR)
-    QString varName = "returnn";
+    QString varName = "return";
     std::string valueType = tipoR->getTipo().toStdString();
     if (valueType == "Integer") {
         ctx->addVariable(varName.toStdString(), valueType, 1);

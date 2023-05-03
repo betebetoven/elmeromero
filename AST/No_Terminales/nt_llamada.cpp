@@ -10,6 +10,7 @@ Resultado* NT_Llamada::Interpretar(Environment* env, EnvironmentFunc* ctx2, Envi
     if (expr) {//EXPR ES UN BLOQUE
 
             QString temporalposicion="";
+            QString temporalderetorno = "";
             if(this->asignacionparametros.size()!=0)
             {
                 temporalposicion = "t"+QString::number(MiniResultado::x++);
@@ -49,10 +50,21 @@ Resultado* NT_Llamada::Interpretar(Environment* env, EnvironmentFunc* ctx2, Envi
             std::cout<<"P = P + "<<env->placer<<";"<<std::endl;
             std::cout<<varName<<"();"<<std::endl;
             std::cout<<"P = P - "<<env->placer<<";"<<std::endl;
+            if(temporalposicion!="")
+            {
+             temporalderetorno = "t"+QString::number(MiniResultado::x++);
+             std::cout<<"//termporal de retorno"<<std::endl;
+            std::cout<<temporalderetorno.toStdString()<<" = stack[(int)"<<temporalposicion.toStdString()<<"];"<<std::endl;
+            }
+
+
+
+            idR->miniResultado.temporales.push_front(temporalderetorno);
+            return idR;
     } 
 
+    return nullptr;
 
-        return nullptr;
 
 
 

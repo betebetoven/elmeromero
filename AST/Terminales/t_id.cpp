@@ -51,12 +51,12 @@ Resultado* T_ID::Interpretar(Environment* ctx,EnvironmentFunc* ctx2, Environment
         {
             temporaldeE = x->miniResultado.temporales[0];
             std::cout<<tindex.toStdString()<<" = "<<tstack.toStdString()<<" + "<<temporaldeE.toStdString()<<";"<<std::endl;
-            std::cout<<theap.toStdString()<<" = heap[(int)"<<tstack.toStdString()<<"];"<<std::endl;
+            std::cout<<theap.toStdString()<<" = heap[(int)"<<tindex.toStdString()<<"];"<<std::endl;
         }
         else
         {
             std::cout<<tindex.toStdString()<<" = "<<tstack.toStdString()<<" + "<<x->getValor().toInt()<<";"<<std::endl;
-            std::cout<<theap.toStdString()<<" = heap[(int)"<<tstack.toStdString()<<"];"<<std::endl;
+            std::cout<<theap.toStdString()<<" = heap[(int)"<<tindex.toStdString()<<"];"<<std::endl;
         }
 
 

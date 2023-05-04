@@ -17,10 +17,29 @@ Resultado* T_ID::Interpretar(Environment* ctx,EnvironmentFunc* ctx2, Environment
     std::cout<<"// obtenemos valor de "<< id_str<<std::endl;
     // Retrieve the variable content from the environment
     auto content = ctx->getVariableContent(id_str);
+    std::string type_name = typeid(content).name();
+    std::string vartype = ctx->getVariableType(id_str);
     int placer = ctx->getvariableplacer(id_str);
 
     // Create a new Resultado object with the content of the variable
-    Resultado* resultado = std::visit(ResultadoVisitor{}, content);
+    //Resultado* resultado = std::visit(ResultadoVisitor{}, content);
+    Resultado* resultado;
+    if (vartype == "String") {
+        QString enter = "0";
+        std::cout<<"//SI TRANSFORMA RESULTADO"<<std::endl;
+        resultado = new Resultado(enter);
+    } else if (vartype == "Integer") {
+        resultado = new Resultado(0);
+    } else if (vartype == "Float") {
+        resultado = new Resultado(static_cast<float>(1.1));
+    } else if (vartype == "Boolean") {
+        resultado = new Resultado(false);
+    }
+
+
+
+
+
 
     if(this->lista_expr.size() ==0)
     {
@@ -30,7 +49,7 @@ Resultado* T_ID::Interpretar(Environment* ctx,EnvironmentFunc* ctx2, Environment
         QString generado = "t"+QString::fromStdString(std::to_string(MiniResultado::x));
         resultado->miniResultado.temporales.push_front(generado);
         MiniResultado::x++;
-        std::cout<<"//__________ "<<std::endl;
+        std::cout<<"//__________t id sube como"<<resultado->getTipo().toStdString()<<std::endl;
     }
     if(this->lista_expr.size() ==1)
     {

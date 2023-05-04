@@ -27,6 +27,7 @@ Resultado *T_String::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Environ
 
      Resultado* r = new Resultado(trimmedStr);
      r->miniResultado.temporales.push_front(temporal);
+     std::cout<<"// SUBE COMO______________ "<<r->getTipo().toStdString()<<std::endl;
     return r;
 }
 

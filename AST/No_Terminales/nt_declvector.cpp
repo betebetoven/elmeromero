@@ -19,6 +19,8 @@ Resultado* NT_DeclVector::Interpretar(Environment* ctx, EnvironmentFunc* ctx2, E
     std::cout<<temporal.toStdString()<<" = H;"<<std::endl;
     for (int i = 0; i < this->Expr.size(); i++) {
         Resultado* exprR = this->Expr[i]->Interpretar(ctx, ctx2, ctx3);
+        if (valueType == "String")
+            std::cout<<temporal.toStdString()<<" = H;"<<std::endl;
         if (exprR->getTipo() == tipoR->getTipo()) {
             if (exprR->getTipo() == tipoR->getTipo()) {
             if (exprR->miniResultado.temporales.size() == 0){
@@ -42,6 +44,11 @@ Resultado* NT_DeclVector::Interpretar(Environment* ctx, EnvironmentFunc* ctx2, E
         } else {
             return nullptr;
         }
+
+
+
+
+
     }
      std::cout << c3dCode;
 

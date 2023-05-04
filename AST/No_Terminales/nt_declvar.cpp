@@ -103,6 +103,8 @@ Resultado *NT_DeclVar::Interpretar(Environment *ctx,EnvironmentFunc* ctx2, Envir
         } else if (valueType == "Boolean") {
             ctx->addVariable(varName.toStdString(), valueType, false);
         } else if (valueType == "String") {
+            std::cout<<"//SI AGREGA EL PARAMETRO DONDE TIENE QUE AGREGARLO_____"<<std::endl;
+
             ctx->addVariable(varName.toStdString(), valueType, "o");
         }
 

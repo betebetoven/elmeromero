@@ -21,14 +21,56 @@ Resultado* T_ID::Interpretar(Environment* ctx,EnvironmentFunc* ctx2, Environment
 
     // Create a new Resultado object with the content of the variable
     Resultado* resultado = std::visit(ResultadoVisitor{}, content);
+
+    if(this->lista_expr.size() ==0)
+    {
     std::cout<<"t"<<MiniResultado::x<<" =P + "<<placer<<";"<<std::endl;
         MiniResultado::x++;
         std::cout<<"t"<<MiniResultado::x<<" = stack[(int)t"<<MiniResultado::x-1<<"];"<<std::endl;
         QString generado = "t"+QString::fromStdString(std::to_string(MiniResultado::x));
         resultado->miniResultado.temporales.push_front(generado);
         MiniResultado::x++;
+        std::cout<<"//__________ "<<std::endl;
+    }
+    if(this->lista_expr.size() ==1)
+    {
+        QString tposicion = "t"+QString::number(MiniResultado::x++);
+        QString tstack = "t"+QString::number(MiniResultado::x++);
+        QString tindex = "t"+QString::number(MiniResultado::x++);
+        QString theap = "t"+QString::number(MiniResultado::x++);
+        QString temporaldeE= "";
+        Resultado* x = this->lista_expr[0]->Interpretar(ctx,ctx2,ctx3);
+        if(x->miniResultado.temporales.size()!=0)
+            temporaldeE = x->miniResultado.temporales[0];
+        else
+        //t = p+0 t = stack[t]
+        std::cout<<tposicion.toStdString()<<" =P + "<<placer<<";"<<std::endl;
+        std::cout<<tstack.toStdString()<<" = stack[(int)"<<tposicion.toStdString()<<"];"<<std::endl;
+        //t = t + tE      t = heap[t]
+        if(x->miniResultado.temporales.size()!=0)
+        {
+            temporaldeE = x->miniResultado.temporales[0];
+            std::cout<<tindex.toStdString()<<" = "<<tstack.toStdString()<<" + "<<temporaldeE.toStdString()<<";"<<std::endl;
+            std::cout<<theap.toStdString()<<" = heap[(int)"<<tstack.toStdString()<<"];"<<std::endl;
+        }
+        else
+        {
+            std::cout<<tindex.toStdString()<<" = "<<tstack.toStdString()<<" + "<<x->getValor().toInt()<<";"<<std::endl;
+            std::cout<<theap.toStdString()<<" = heap[(int)"<<tstack.toStdString()<<"];"<<std::endl;
+        }
 
-std::cout<<"//__________ "<<std::endl;
+
+
+        resultado->miniResultado.temporales.push_front(theap);
+
+
+
+            std::cout<<"//__________ "<<std::endl;
+
+
+    }
+
+
     return resultado;
 }
 
@@ -40,8 +82,20 @@ QString T_ID::Graficar() {
                                    " [ label=\"T ID" + this->id.toStdString() +
                                    "\"   fillcolor=\"#12342c\"];\n");
 }
-
+//const QVector<AbstractExpr*>&nodo
 T_ID::T_ID(QString id) {
     //std::cout << "crea el T ID" << std::endl;
     this->id = id;
+    this->lista_expr = {};
 }
+
+
+T_ID::T_ID(QString id,const QVector<AbstractExpr*>&nodo): id(id),lista_expr(nodo) {
+
+}
+
+
+
+
+
+

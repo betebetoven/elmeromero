@@ -12,29 +12,60 @@ Resultado* NT_DeclVector::Interpretar(Environment* ctx, EnvironmentFunc* ctx2, E
 
     QString varName = idR->getValor().toString();
     std::string valueType = tipoR->getTipo().toStdString();
-
-    QVector<Value> values;
+    std::cout<<"//declaracion parametros de vector "<<varName.toStdString()<<std::endl;
+    QVector<const Value> values;
+    std::string c3dCode;
+    QString temporal = "t"+QString::number(MiniResultado::x++);
+    std::cout<<temporal.toStdString()<<" = H;"<<std::endl;
     for (int i = 0; i < this->Expr.size(); i++) {
         Resultado* exprR = this->Expr[i]->Interpretar(ctx, ctx2, ctx3);
         if (exprR->getTipo() == tipoR->getTipo()) {
-            if (valueType == "Integer") {
-                values.append(exprR->getValor().toInt());
-            } else if (valueType == "Float") {
-                values.append(static_cast<float>(exprR->getValor().toDouble()));
-            } else if (valueType == "Boolean") {
-                values.append(exprR->getValor().toBool());
-            } else if (valueType == "String") {
-                values.append(exprR->getValor().toString().toStdString());
+            if (exprR->getTipo() == tipoR->getTipo()) {
+            if (exprR->miniResultado.temporales.size() == 0){
+                // Add the exprR->getValor() to the heap
+                if (valueType == "Integer")
+                c3dCode += "heap[(int)H] = " + std::to_string(exprR->getValor().toInt()) + ";\n";
+                else if (valueType == "Float")
+                    c3dCode += "heap[(int)H] = " + std::to_string(static_cast<float>(exprR->getValor().toDouble())) + ";\n";
+                else if (valueType == "Boolean")
+                    c3dCode += "heap[(int)H] = " + std::to_string(exprR->getValor().toBool()) + ";\n";
+
+                c3dCode += "H = H + 1;\n";
+            } else {
+                // Use the temporal value at exprR->Miniresultado.temporales[0] to add to the heap
+
+                c3dCode += "heap[(int)H] = " + exprR->miniResultado.temporales[0].toStdString() + ";\n";
+                c3dCode += "H = H + 1;\n";
             }
+            }
+
         } else {
-            // Handle type mismatch error
-            // You can return an error Resultado or throw an exception
-            // depending on your error handling strategy
             return nullptr;
         }
     }
+     std::cout << c3dCode;
 
-    ctx3->addVariable(varName.toStdString(), valueType, values);
+    bool aux = 0;
+    if (valueType == "Integer")
+    ctx->addVariable(varName.toStdString(), valueType, 0);
+    else if (valueType == "Float")
+    ctx->addVariable(varName.toStdString(), valueType, static_cast<float>(0.0));
+    else if (valueType == "Boolean")
+        ctx->addVariable(varName.toStdString(), valueType, aux);
+    else if (valueType == "String")
+        ctx->addVariable(varName.toStdString(), valueType, "k");
+
+    int pos = ctx->getvariableplacer(varName.toStdString());
+    std::cout<<"//declaramos vector "<<varName.toStdString()<<std::endl;
+    QString tmp = "t"+QString::fromStdString(std::to_string(MiniResultado::x++));
+    std::cout<<tmp.toStdString()<<" = P + "<<pos<<";"<<std::endl;
+    std::cout<<"stack[(int)"<<tmp.toStdString()<<"]= "<<temporal.toStdString()<<";"<<std::endl;
+    std::cout<<"//_________fin declaracion vector "<<varName.toStdString()<<std::endl;
+
+
+
+
+
     return nullptr;
 }
 
